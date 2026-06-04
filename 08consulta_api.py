@@ -1,4 +1,6 @@
 # http.dog
+# https://appinventor.mit.edu/
+# Pypilulas
 
 import json, requests
 nome = input('Qual o nome que você deseja buscar?\nR: ')
