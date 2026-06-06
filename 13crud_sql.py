@@ -44,7 +44,31 @@ def listarUsuarios() :
         print(usuario)
     conexao.close()
     
+    
+def AtualizarUsuario(id, novoNome, novaIdade) :
+    conexao = conectarBanco()
+    cursor = conexao.cursor()
+    cursor.execute(''' 
+        UPDATE usuarios 
+        SET nome = ?, idade = ?
+        WHERE id = ?                    
+    ''', (novoNome, novaIdade, id))
+    conexao.commit()
+    conexao.close()
+    
+def ExcluirUsuario(id) :
+    conexao = conectarBanco()
+    cursor = conexao.cursor()
+    cursor.execute('''
+        DELETE FROM usuarios
+        WHERE id = ?    
+    ''', (id,))
+    conexao.commit()
+    conexao.close()  
+    
+    
 criarTabela()
+
 inserirUsuarios('Caio', 39)
 inserirUsuarios('Guilherme', 25)
 inserirUsuarios('Leandro', 39)
@@ -53,3 +77,7 @@ inserirUsuarios('Daniel', 30)
 inserirUsuarios('Vinicius', 22)
 
 listarUsuarios()
+AtualizarUsuario(3, 'Thamires', 35)
+listarUsuarios()
+
+ExcluirUsuario(3)
