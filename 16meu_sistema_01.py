@@ -15,14 +15,30 @@ def fazerLogin() :
 def welcome() :
     return render_template('welcome.html')
 
+@app.route("/validador/", methods=['POST', 'GET']) 
+def validade() :
+    meuUsuario = 'Guilherme'
+    minhaSenha = '1234'
+    # CASO SEJA UM POST
+    if request.method == 'POST' :
+        usuario = request.form['c_usuario']
+        senha = request.form['c_senha']
+        if usuario == meuUsuario and senha == minhaSenha:
+            return redirect(url_for('welcome'))
+        else:
+            return redirect(url_for('pagina403'))
+    # CASO SEJA UM GET
+    else :
+        usuario = request.args.get('c_usuario')
+        senha = request.args.get('c_senha')
+        if usuario == meuUsuario and senha == minhaSenha:
+            return redirect(url_for('welcome'))
+        else:
+            return redirect(url_for('pagina403'))
+
 @app.route('/pagina403')
 def pagina403() :
     return render_template('pagina403.html')
-
-@app.validador()
-def validade() :
-    return render_template
     
-
 if __name__ == "__main__" :
     app.run(debug=True)
